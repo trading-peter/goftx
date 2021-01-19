@@ -298,7 +298,6 @@ func (s *Stream) SubscribeToOrders(ctx context.Context) (chan *models.OrderRespo
 				}
 				order, ok := event.(*models.OrderResponse)
 				if !ok {
-					fmt.Println(event.(json.RawMessage))
 					return
 				}
 				ordersC <- order
