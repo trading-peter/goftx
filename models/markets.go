@@ -8,6 +8,7 @@ import (
 
 type Market struct {
 	Name           string          `json:"name"`
+	Type           string          `json:"type"`
 	Underlying     string          `json:"underlying"`
 	BaseCurrency   string          `json:"baseCurrency"`
 	QuoteCurrency  string          `json:"quoteCurrency"`
