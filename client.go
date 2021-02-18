@@ -36,16 +36,18 @@ func WithHTTPClient(client *http.Client) Option {
 	}
 }
 
-func WithAuth(key, secret string, subAccount ...string) Option {
+func WithAuth(key, secret string) Option {
 	return func(c *Client) {
 		c.apiKey = key
 		c.secret = secret
 		c.Stream.apiKey = key
 		c.Stream.secret = secret
+	}
+}
 
-		if len(subAccount) > 0 {
-			c.subAccount = subAccount[0]
-		}
+func WithSubaccount(subAccount string) Option {
+	return func(c *Client) {
+		c.subAccount = subAccount
 	}
 }
 

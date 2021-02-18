@@ -94,7 +94,7 @@ func (s *Stream) connect(requests ...models.WSRequest) (*websocket.Conn, error) 
 	}
 
 	conn.SetPongHandler(func(msg string) error {
-		s.printf("PONG")
+		s.printf("%s", "PONG")
 		conn.SetReadDeadline(time.Now().Add(s.wsTimeout))
 		return nil
 	})
@@ -173,7 +173,7 @@ func (s *Stream) serve(ctx context.Context, requests ...models.WSRequest) (chan 
 			case <-doneC:
 				return
 			case <-time.After((s.wsTimeout * 9) / 10):
-				s.printf("PING")
+				s.printf("%s", "PING")
 				conn.SetWriteDeadline(time.Now().Add(writeWait))
 				if err := conn.WriteMessage(websocket.PingMessage, nil); err != nil {
 					s.printf("write ping: %v", err)
@@ -191,7 +191,7 @@ func (s *Stream) auth(conn *websocket.Conn) error {
 		return nil
 	}
 
-	s.printf("Authenticate websocket connection")
+	s.printf("%s", "Authenticate websocket connection")
 	msec := time.Now().UTC().UnixNano() / int64(time.Millisecond)
 
 	mac := hmac.New(sha256.New, []byte(s.secret))
